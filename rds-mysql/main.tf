@@ -21,7 +21,7 @@ terraform {
 }
 locals {
   create_random_password=var.create_random_password
-  password = local.create_random_password ? create_random_password.master_password[0].result : var.master_password
+  password = local.create_random_password ? random_password.master_password[0].result : var.master_password
 }
 data "aws_availability_zones" "available" {}
 data "aws_vpc" "this" {
