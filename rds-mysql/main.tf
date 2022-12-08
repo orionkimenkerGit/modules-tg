@@ -24,8 +24,9 @@ locals {
   password = local.create_random_password ? random_password.master_password[0].result : var.master_password
 }
 data "aws_availability_zones" "available" {}
+
 data "aws_vpc" "this" {
-  id = var.vpc_specific_id == "" ? var.vpc_id : var.vpc_specific_id
+  id = var.vpc_id
 }
 
 resource "random_password" "master_password" {
@@ -47,7 +48,6 @@ data "aws_subnets" "this" {
 }
 
 resource "aws_db_subnet_group" "this" {
-  count = var.aws_db_subnet_group != "" ? 0 : 1
   subnet_ids = flatten([var.private_subnet_ids])
   tags = {
     Name = "MySQL subnet group"
