@@ -55,6 +55,7 @@ variable "engine" {
 variable "db_name" {
   description = "MySQL DB name"
   type        = string
+  default = "default_name"
 }
 variable "username" {
   description = "RDS database admin username"
@@ -68,11 +69,4 @@ variable "publicly_accessible" {
 variable "vpc_security_group_ids" {
   description = "Attach VPC security groups to DB instance"
   type        = list(any)
-}
-variable "aws_db_subnet_group" {
-  type    = string
-}
-variable "vpc_specific_id" {
-  description = "ID if pre-installed vpc"
-  type        = string
 }
