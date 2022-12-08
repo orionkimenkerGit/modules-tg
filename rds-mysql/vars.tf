@@ -1,34 +1,78 @@
-variable "aws_region" {
-  description = "The AWS region to deploy to (e.g. us-east-1)"
-  type        = string
-}
-
 variable "name" {
-  description = "The name of the DB"
+  description = "Environment Name"
   type        = string
 }
-
+variable "storage_encrypted" {
+  description = "Enable storage encryption"
+  type        = bool
+}
+variable "create_random_password" {
+  description = "Whether to create random password for RDS DB"
+  type        = bool
+}
+variable "master_password" {
+  description = "RDS database password. Note - when specifying a value here, 'create_random_password' should be set to `false`"
+  type        = string
+  sensitive   = true
+}
+variable "skip_final_snapshot" {
+  description = "Skip final snapshot"
+  type        = bool
+}
+variable "identifier" {
+  description = "RDS identifier of DB"
+  type        = string
+}
+variable "vpc_id" {
+  description = "VPC ID for RDS cluster"
+  type        = string
+}
+variable "deletion_protection" {
+  description = "The database can't be deleted when this value is set to true (useful for prod)"
+  type        = bool
+}
+# Parameter group
+variable "private_subnet_ids" {
+  type = list(string)
+  description = "List of VPC Private Subnets"
+}
 variable "instance_class" {
-  description = "The instance class of the DB (e.g. db.t2.micro)"
+  description = "DB instance class"
   type        = string
 }
-
 variable "allocated_storage" {
-  description = "The amount of space, in GB, to allocate for the DB"
+  description = "Storage size for DB"
   type        = number
 }
-
-variable "storage_type" {
-  description = "The type of storage to use for the DB. Must be one of: standard, gp2, or io1."
+variable "engine_version" {
+  description = "DB engine version"
   type        = string
 }
-
-variable "master_username" {
-  description = "The username for the master user of the DB"
+variable "engine" {
+  description = "RDS engine type"
   type        = string
 }
-
-variable "master_password" {
-  description = "The password for the master user of the DB"
+variable "db_name" {
+  description = "MySQL DB name"
+  type        = string
+}
+variable "username" {
+  description = "RDS database admin username"
+  type        = string
+  sensitive   = true
+}
+variable "publicly_accessible" {
+  description = "control if instance is publicly accessible"
+  type        = bool
+}
+variable "vpc_security_group_ids" {
+  description = "Attach VPC security groups to DB instance"
+  type        = list(any)
+}
+variable "aws_db_subnet_group" {
+  type    = string
+}
+variable "vpc_specific_id" {
+  description = "ID if pre-installed vpc"
   type        = string
 }
