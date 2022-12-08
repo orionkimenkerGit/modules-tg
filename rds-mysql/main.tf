@@ -48,7 +48,7 @@ data "aws_subnets" "this" {
 
 resource "aws_db_subnet_group" "this" {
   count = var.aws_db_subnet_group != "" ? 0 : 1
-  subnet_ids = ["${var.private_subnet_ids}"]
+  subnet_ids = flatten([var.private_subnet_ids])
   tags = {
     Name = "MySQL subnet group"
   }
